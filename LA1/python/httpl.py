@@ -1,6 +1,7 @@
 import httplib
 import urllib
 import urlparse
+import ast
 import json
 
 
@@ -67,10 +68,7 @@ def POST(url, str):
     
     body = {} 
     if ("-d" in str):
-        if("json" in str[str.index("-d")+1]):
-            body = json.dump(str[str.index("-d")+1])
-        else:
-            body = ast.literal_eval(str[str.index("-d")+1])
+        body = ast.literal_eval(str[str.index("-d")+1])
 
     BODY = urllib.urlencode(body)
     
@@ -93,7 +91,7 @@ def POST(url, str):
 
     res.close()
 
-POST("http://httpbin.org/post?var=1","POST -h Content-Type:application/json -d {'spam':5,'eggs':2,'bacon':0}")
+#POST("http://httpbin.org/post?var=1","POST -h Content-Type:application/json -h Accept:text/plain -d {'spam':5,'eggs':2,'bacon':0}")
 
 
 
