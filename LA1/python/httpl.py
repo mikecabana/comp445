@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 import httplib
 import urllib
 import urlparse
@@ -31,6 +33,7 @@ def GET(url, str):
 
     print "GET", PATH, "HTTP /",(res.version / 10.)
     print "Host: ", HOST, "\n"
+    print res.reason, res.status
 
     if ("-v" in str):
         print res.msg
@@ -44,7 +47,7 @@ def GET(url, str):
 
 #GET("http://httpbin.org/status/418?var=2", "GET -v -h Content-Type:application -h Accept:text/plain")
 
-def POST(url, str):
+def POST(url, args):
     #process the url
     url = urlparse.urlparse(url)
     HOST = url.netloc
@@ -56,19 +59,23 @@ def POST(url, str):
         QUERRY = "?"+QUERRY 
 
     #process the string
-    str = str.split(" ")
+    args = args.split(" ")
 
     HEADER = {}
     start = 0
-    for x in str:
+    for x in args:
         start += 1
         if (x == "-h"):
-            temp = str[start].split(":")
+            temp = args[start].split(":")
             HEADER[temp[0]] = temp[1]
     
     body = {} 
-    if ("-d" in str):
-        body = ast.literal_eval(str[str.index("-d")+1])
+    if ("-d" in args):
+        body = ast.literal_eval(args[args.index("-d")+1])
+
+    if ("-f" in args):
+        file = open(args[args.index("-f")+1],"r")
+        body = ast.literal_eval(file.read())
 
     BODY = urllib.urlencode(body)
     
@@ -77,9 +84,10 @@ def POST(url, str):
     res = con.getresponse()
 
     print "POST", PATH, "HTTP /", (res.version / 10.)
-    print "Host: ", HOST
+    print "Host: ", HOST, "\n"
+    print res.reason, res.status
 
-    if ("-v" in str):
+    if ("-v" in args):
         print res.msg
     else:
         print res.getheaders()

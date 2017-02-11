@@ -5,15 +5,24 @@ import argparse
 from httpl import GET, POST
 
 def main(kb):
-    method = kb[1]
-    del kb[1]
+    method = kb[0]
+    url = kb[-1]
+    del kb[0], kb[-1]
     arguments = " ".join(kb)
+    print arguments
 
     if method == "get":
-        print "Using the get method"
-        GET(kb[0], arguments)
+        if " -d " not in arguments and " -f " not in arguments:
+            print "\nUsing the get method\n"
+            GET(url, arguments)
+        else:
+            print "\nCannot us -d or -f as an option"
     elif method == "post":
-        print "Using the post method"
+        if ((" -d" in arguments) is not (" -f" in arguments)):
+            print "\nUsing the post method\n"
+            POST(url, arguments)
+        else:
+            print "\nCannot use both -d and -f at the same time"
     else:
         print "error: http method must be specified"
 
@@ -21,4 +30,4 @@ def main(kb):
 
 
 if __name__ == "__main__":
-   main(sys.argv)
+   main(sys.argv[1:])
