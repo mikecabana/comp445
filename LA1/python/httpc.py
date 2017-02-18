@@ -9,7 +9,9 @@ def main(kb):
     url = kb[-1]
     del kb[0], kb[-1]
     arguments = " ".join(kb)
-    print arguments
+    #print kb
+    #print arguments
+
 
     if method == "get":
         if " -d " not in arguments and " -f " not in arguments:
@@ -23,6 +25,7 @@ def main(kb):
             POST(url, arguments)
         else:
             print "\nCannot use both -d and -f at the same time"
+            #POST(url, arguments)
     else:
         print "error: http method must be specified"
 

@@ -25,7 +25,6 @@ def GET(url, str):
         start += 1
         if (x == "-h"):
             HEADER += str[start]+ " "
-            
 
     con = httplib.HTTPConnection(HOST,80)
     con.request("GET", PATH, HEADER)
@@ -37,10 +36,11 @@ def GET(url, str):
 
     if ("-v" in str):
         print res.msg
+        print res.read()
     else:
         print res.getheaders()
 
-    print res.read()
+    #print res.read()
 
     res.close()
 
@@ -71,6 +71,7 @@ def POST(url, args):
     
     body = {} 
     if ("-d" in args):
+        #print args[args.index("-d")+1]
         body = ast.literal_eval(args[args.index("-d")+1])
 
     if ("-f" in args):
@@ -89,10 +90,11 @@ def POST(url, args):
 
     if ("-v" in args):
         print res.msg
+        print res.read()
     else:
         print res.getheaders()
     
-    print res.read()
+    #print res.read()
 
 
     #print QUERRY
