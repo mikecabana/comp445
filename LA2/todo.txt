@@ -1,0 +1,7 @@
+analyse request body
+if get \
+	list directory
+if get \foo
+	list contents of foo
+if post \bar
+	create or overwrite
