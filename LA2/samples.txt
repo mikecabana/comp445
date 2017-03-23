@@ -1,0 +1,26 @@
+Sample commands
+
+run the server
+
+default options
+python httpfs.py
+
+specify a directory
+python httpfs.py -d afolder
+
+add verbose
+python httpfs.py -v -d afolder
+
+choose port
+python httpfs.py -v -d afolder -p 8007
+
+test the server in a different console
+
+get list of files
+curl -get localhost:8007/
+
+get contents of file
+curl -get localhost:8007/afile.txt
+
+post data to an existing file or create it if it doesn’t exist
+curl -post -H "Content-Type:application/text" -d "writing this data to file” localhost:8007/afile3.txt
