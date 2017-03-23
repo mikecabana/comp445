@@ -10,11 +10,11 @@ def run_client(host, port):
         print("Type any thing then ENTER. Press Ctrl+C to terminate")
         while True:
             line = sys.stdin.readline(1024)
-            request = line.encode("utf-8")
+            request = line.encode('utf-8')
             conn.sendall(request)
             # MSG_WAITALL waits for full request or error
             response = conn.recv(len(request), socket.MSG_WAITALL)
-            sys.stdout.write("Replied: " + response.decode("utf-8"))
+            sys.stdout.write("Replied: " + response.decode('utf-8'))
     finally:
         conn.close()
 
@@ -22,6 +22,8 @@ def run_client(host, port):
 # Usage: python echoclient.py --host host --port port
 parser = argparse.ArgumentParser()
 parser.add_argument("--host", help="server host", default="localhost")
-parser.add_argument("--port", help="server port", type=int, default=8007)
+parser.add_argument("-p", help="server port", type=int, default=8080)
+#parser.add_argument("-h", help="headers", type=str, default="Content-Type: text/plain")
+#parser.add_argument("-v", help="verbosity",  action='store_true')
 args = parser.parse_args()
-run_client(args.host, args.port)
+run_client(args.host, args.p)

@@ -23,6 +23,7 @@ def handle_client(conn, addr):
             data = conn.recv(1024)
             if not data:
                 break
+            print repr(data)
             conn.sendall(data)
     finally:
         conn.close()

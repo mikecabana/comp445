@@ -16,7 +16,7 @@ def main(kb):
     if method == "get":
         if " -d " not in arguments and " -f " not in arguments:
             print "\nUsing the get method\n"
-            GET(url, arguments)
+            GET(url, arguments,8007)
         else:
             print "\nCannot us -d or -f as an option"
     elif method == "post":

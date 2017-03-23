@@ -7,7 +7,7 @@ import ast
 import json
 
 
-def GET(url, str):
+def GET(url, str, port):
     #process the url
     url = urlparse.urlparse(url)
     HOST = url.netloc
@@ -15,6 +15,7 @@ def GET(url, str):
     if PATH == "":
         PATH = "/"
     QUERY = url.query
+    PORT = port
 
     #process the string
     str = str.split(" ")
@@ -26,7 +27,7 @@ def GET(url, str):
         if (x == "-h"):
             HEADER += str[start]+ " "
 
-    con = httplib.HTTPConnection(HOST,80)
+    con = httplib.HTTPConnection(HOST, PORT)
     con.request("GET", PATH, HEADER)
     res = con.getresponse()
 
