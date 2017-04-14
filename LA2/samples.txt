@@ -14,6 +14,8 @@ python httpfs.py -v -d afolder
 choose port
 python httpfs.py -v -d afolder -p 8007
 
+
+
 test the server in a different console
 
 get list of files

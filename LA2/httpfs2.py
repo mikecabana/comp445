@@ -22,7 +22,7 @@ def runHttpfs(port, directory):
         request = conn.recv(1024).decode("utf-8")
         #breaking up the request
         request = request.split('\r\n')
-        mpv = request[0].split()
+        mpv = request[0].split() #method path and http version
         method = mpv[0]
         path = mpv[1]
 
