@@ -17,11 +17,11 @@ def parse_message(application_message):
     return user_name[1], user_message[1]
 
 def chat_application():
-    ip_address = '192.168.1.255'
+    ip_address = '255.255.255.255'
     port = 2052
     user_name = read_text_from_user_input('Enter your name: ')
     threading.Thread(target=sender, args=(user_name, ip_address, port)).start()
-    threading.Thread(target=receiver, args=(ip_address, port)).start()
+    threading.Thread(target=receiver, args=(port,)).start()
 
 
 def sender(user_name, ip_address, port):
@@ -33,9 +33,9 @@ def sender(user_name, ip_address, port):
         s.sendto(application_message.encode('utf-8'), (ip_address, port))
         s.close()
 
-def receiver(ip_address, port):
+def receiver(port):
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    s.bind((ip_address, port))
+    s.bind(('', port))
     while True:
         application_message, address = s.recvfrom(port)
         #print(application_message.decode('utf-8'))
