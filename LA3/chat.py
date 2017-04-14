@@ -17,7 +17,7 @@ def parse_message(application_message):
     return user_name[1], user_message[1]
 
 def chat_application():
-    ip_address = '127.0.0.1'
+    ip_address = '192.168.1.255'
     port = 2052
     user_name = read_text_from_user_input('Enter your name: ')
     threading.Thread(target=sender, args=(user_name, ip_address, port)).start()
@@ -26,7 +26,7 @@ def chat_application():
 
 def sender(user_name, ip_address, port):
     while True:
-        user_message = read_text_from_user_input('#####:')
+        user_message = read_text_from_user_input('')
         application_message = build_message(user_name, user_message)
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         s.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
