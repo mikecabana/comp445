@@ -25,11 +25,11 @@ def chat_application():
 
 
 def sender(user_name, ip_address, port):
-    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     while True:
         user_message = read_text_from_user_input('#####:')
         application_message = build_message(user_name, user_message)
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
         s.sendto(application_message.encode('utf-8'), (ip_address, port))
         s.close()
 
