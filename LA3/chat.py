@@ -25,7 +25,6 @@ def chat_application():
 
 
 def sender(user_name, ip_address, port):
-    global users
     command_name = 'JOIN'
     user_message = 'joined!'
     #users += user_name
@@ -42,8 +41,7 @@ def sender(user_name, ip_address, port):
             user_message = 'left!'
             print('Bye now!')
         if user_message == '/who':
-            print('Connected Users: ', users)
-            command_name = ''
+            command_name = 'WHO'
             user_message = ''
         application_message = build_message(user_name, command_name, user_message)
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -63,15 +61,17 @@ def receiver(port):
         if command_name == 'JOIN':
             users += [user_name]
             print(str(timestamp) +' '+user_name+' '+user_message)
-            command_name = 'PING'
-            user_message = ''
-            application_message = build_message(user_name, command_name, user_message)
-            s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-            s.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
-            s.sendto(application_message.encode('utf-8'), ('255.255.255.255', port)) 
-            s.close()
+            # command_name = 'PING'
+            # user_message = ''
+            # application_message = build_message(user_name, command_name, user_message)
+            # s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+            # s.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
+            # s.sendto(application_message.encode('utf-8'), ('255.255.255.255', port)) 
+            # s.close()
         if command_name == 'PING':
             users += [user_name]
+        if command_name == 'WHO':
+            print('Connected users: ', users)
         if command_name == 'TALK':
             print(str(timestamp) +' ['+ user_name +'] ' +user_message)
         if command_name == 'LEAVE':
