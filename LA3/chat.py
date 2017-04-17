@@ -28,7 +28,7 @@ def sender(user_name, ip_address, port):
     global users
     command_name = 'JOIN'
     user_message = 'joined!'
-    users += user_name
+    users += [user_name]
     application_message = build_message(user_name, command_name, user_message)
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     s.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
@@ -48,7 +48,7 @@ def sender(user_name, ip_address, port):
         application_message = build_message(user_name, command_name, user_message)
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         s.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
-        s.sendto(application_message.encode('utf-8'), (ip_address, port)) 
+        s.sendto(application_message.encode('ascii'), (ip_address, port)) 
         s.close()
 
 def receiver(port):
@@ -57,7 +57,7 @@ def receiver(port):
     s.bind(('', port))
     while True:
         application_message, address = s.recvfrom(1024)
-        (user_name, command_name, user_message) = parse_message(application_message.decode('utf-8'))
+        (user_name, command_name, user_message) = parse_message(application_message.decode('ascii'))
         timestamp = datetime.datetime.now()
         if command_name == 'JOIN':
             users += [user_name]
