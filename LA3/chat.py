@@ -68,7 +68,7 @@ def receiver(port):
             application_message = build_message(user_name, command_name, user_message)
             s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
             s.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
-            s.sendto(application_message.encode('utf-8'), (ip_address, port)) 
+            s.sendto(application_message.encode('utf-8'), ('255.255.255.255', port)) 
             s.close()
         if command_name == 'PING':
             users += [user_name]
