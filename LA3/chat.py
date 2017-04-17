@@ -18,7 +18,7 @@ def parse_message(application_message):
 
 def chat_application():
     ip_address = '255.255.255.255'
-    port = 2052
+    port = 5001
     user_name = read_text_from_user_input('Enter your name: ')
     threading.Thread(target=sender, args=(user_name, ip_address, port)).start()
     threading.Thread(target=receiver, args=(port,)).start()
