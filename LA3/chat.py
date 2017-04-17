@@ -56,8 +56,7 @@ def receiver(port):
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     s.bind(('', port))
     while True:
-        application_message, address = s.recvfrom(port)
-        #print(application_message.decode('utf-8'))
+        application_message, address = s.recvfrom(1024)
         (user_name, command_name, user_message) = parse_message(application_message.decode('utf-8'))
         timestamp = datetime.datetime.now()
         if command_name == 'JOIN':
@@ -72,5 +71,3 @@ def receiver(port):
 
 users = []
 chat_application()
-
-#print (build_message('mike', 'JOIN', 'joined!'))
