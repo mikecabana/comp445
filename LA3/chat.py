@@ -28,7 +28,7 @@ def sender(user_name, ip_address, port):
     global users
     command_name = 'JOIN'
     user_message = 'joined!'
-    #users += user_name
+    users += user_name
     application_message = build_message(user_name, command_name, user_message)
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     s.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
