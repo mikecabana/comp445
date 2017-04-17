@@ -63,6 +63,15 @@ def receiver(port):
         if command_name == 'JOIN':
             users += [user_name]
             print(str(timestamp) +' '+user_name+' '+user_message)
+            command_name = 'PING'
+            user_message = ''
+            application_message = build_message(user_name, command_name, user_message)
+            s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+            s.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
+            s.sendto(application_message.encode('utf-8'), (ip_address, port)) 
+            s.close()
+        if command_name == 'PING':
+            users += [user_name]
         if command_name == 'TALK':
             print(str(timestamp) +' ['+ user_name +'] ' +user_message)
         if command_name == 'LEAVE':
